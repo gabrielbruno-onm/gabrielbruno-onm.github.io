@@ -1,11 +1,11 @@
 var inputBtn = window.document.querySelector('#submitButton');
+var loaderBtn = window.document.querySelector('.lds-ring')
 
 function consultar() {
 
     //Armazenando email:
     var userEmail = window.document.querySelector('#inputemail');
     var userEmail = userEmail.value;
-
 
     //Verificando se o e-mail é um e-mail válido:
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -15,7 +15,8 @@ function consultar() {
 
     } else {
         alert(`O e-mail preenchido é inválido. Por favor, tente novamente.`);
-
+        inputBtn.style.background = '#dd004a';
+        loaderBtn.style.display = "none";
     }
 
     //Fazendo email virar JSON
@@ -51,6 +52,13 @@ function consultar() {
     });
 }
 
+function aesthetic() {
+    inputBtn.style.background = '#0b7cac';
+    loaderBtn.style.display = "inline-block";
+}
+
+
 inputBtn.addEventListener('click', function() {
-    consultar()
+    aesthetic();
+    consultar();
 });
