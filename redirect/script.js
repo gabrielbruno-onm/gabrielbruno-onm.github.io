@@ -57,10 +57,12 @@ function consultar() {
                 case 'jwn1nzud':
                     urlHotmart = `https://pay.hotmart.com/?off=jwn1nzud&offDiscount=INVITATION12&sck=checkout1&email=${encodeURIComponent(userEmail)}`;
                     window.location.href = urlHotmart;
+                    aestheticOff();
                     break;
                 case 'qii5bwet':
                     urlHotmart = `https://pay.hotmart.com/?off=jwn1nzud&offDiscount=INVITATION12&sck=checkout2&email=${encodeURIComponent(userEmail)}`;
                     window.location.href = urlHotmart;
+                    aestheticOff();
                     break;
                 default:
                     alert('Este email não está na lista de assinantes elegíveis para a oferta. Por favor, tente com outro e-mail.');
