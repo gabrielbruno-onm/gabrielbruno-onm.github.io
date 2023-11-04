@@ -21,6 +21,8 @@ function aestheticOff() {
 
 function consultar() {
 
+    aestheticOn();
+
     //Armazenando email:
     var userEmail = window.document.querySelector('#inputEmail').value.toLowerCase();
 
@@ -77,7 +79,9 @@ function consultar() {
         aestheticOff();
     }
 }
+
+/*
 inputBtn.addEventListener('click', function() {
-    aestheticOn();
     consultar();
 });
+*/
