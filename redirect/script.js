@@ -51,26 +51,19 @@ function consultar() {
         })
         .then(data => {
             var offer_code = data.offer_code;
+            var coupon_code = data.coupon_code;
             var errorMsg = data.error;
             console.log("Fetch");
             
             //Redirect
-            switch (offer_code) {
-                case 'jwn1nzud':
-                    urlHotmart = `https://pay.hotmart.com/?off=jwn1nzud&offDiscount=INVITATION12&sck=checkout1&email=${encodeURIComponent(userEmail)}`;
+            if (offer_code) {
+                    urlHotmart = `https://pay.hotmart.com/?off=${offer_code}&offDiscount=${coupon_code}&sck=rabw2023&email=${encodeURIComponent(userEmail)}`;
                     window.location.href = urlHotmart;
                     aestheticOff();
-                    break;
-                case 'qii5bwet':
-                    urlHotmart = `https://pay.hotmart.com/?off=jwn1nzud&offDiscount=INVITATION12&sck=checkout2&email=${encodeURIComponent(userEmail)}`;
-                    window.location.href = urlHotmart;
-                    aestheticOff();
-                    break;
-                default:
-                    alert('Este email não está na lista de assinantes elegíveis para a oferta. Por favor, tente com outro e-mail.');
-                    console.log("Executei.");
-                    aestheticOff();
-                break;
+            } else {
+                alert('Este email não está na lista de assinantes elegíveis para a oferta. Por favor, tente com outro e-mail.');
+                console.log("Executei.");
+                aestheticOff();
             }
         });
 
@@ -79,9 +72,3 @@ function consultar() {
         aestheticOff();
     }
 }
-
-/*
-inputBtn.addEventListener('click', function() {
-    consultar();
-});
-*/
