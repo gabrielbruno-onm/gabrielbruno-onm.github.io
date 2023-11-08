@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Renovação Antecipada - ONM 2023</title>
+      <style>
+          * {
+              font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+              font-size: 12px;
+          }
+
+          body {
+              width: 100%;
+              background-image: url("https://onovomercado.com/wp-content/uploads/bg-top-home-1600.png");
+          }
+
+          .form-wrapper {
+              display: flex;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              z-index: 400;
+              background: rgba(0, 0, 0, 0.6);
+              justify-content: center;
+              align-items: center;
+              -webkit-backdrop-filter: blur(6px);
+              backdrop-filter: blur(6px);
+              color: #333;
+          }
+
+          form {
+              width: min(31rem, 90%);
+              padding: 4.4rem 4.2rem 6.2rem;
+              border-radius: 1rem;
+              box-shadow: 0px 3px 30px #e7004c38;
+              -webkit-box-shadow: 0px 3px 30px #e7004c38;
+              position: relative;
+              color: #e7e7e7;
+              background: #efefef;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+          }
+
+          form h1 {
+              margin: 0px;
+              font-size: clamp(2.6rem, 3vw, 3.2rem);
+              font-weight: bold;
+              line-height: 1.2;
+              letter-spacing: -0.04em;
+              color: #e9e9e9;
+              padding: 2rem 0;
+              position: relative;
+              background: linear-gradient(160deg, #4a84c8, #244e81);
+              background: linear-gradient(160deg, #4177b7, #275286);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              /*text-fill-color: transparent;*/
+          }
+
+          form .input-box {
+              margin-bottom: 20px;
+          }
+
+          form input#inputEmail {
+              width: 100%;
+              font-size: 1.4rem;
+              line-height: 2.2;
+              color: #111;
+              min-height: 4rem;
+              margin-bottom: 1rem;
+              border: none;
+              border-bottom: 1px solid #dd004a !important;
+              transition: all 0.5s ease;
+          }
+
+          form input#inputEmail::placeholder {
+              padding-left: 20px;
+              font-size: 1.6rem;
+          }
+
+          form input#inputEmail:focus {
+              outline: none;
+          }
+
+          form input#submitButton {
+              font-size: 1.4rem;
+              background: linear-gradient(to right, #ff5075, #e0004d);
+              border: none;
+              text-transform: uppercase;
+              color: #fff;
+              font-weight: bold;
+              padding: 1.6rem 1rem;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
+              transition: all 0.3s ease;
+          }
+
+          form input#submitButton:hover {
+              cursor: pointer;
+              box-shadow: -2px 0 8px 4px #ff9ab0;
+              -webkit-box-shadow: -2px 0 8px 4px #ff9ab0;
+          }
+          /*CSS LOADER*/
+          .lds-ring {
+              margin: auto;
+              /*display: inline-block;*/
+              display: none;
+              position: relative;
+              width: 40px;
+              height: 40px;
+          }
+          .lds-ring div {
+              box-sizing: border-box;
+              display: block;
+              position: absolute;
+              width: 32px;
+              height: 32px;
+              margin: 4px;
+              border: 4px solid #fff;
+              border-radius: 50%;
+              animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+              border-color: #dd004a transparent transparent transparent;
+          }
+          .lds-ring div:nth-child(1) {
+              animation-delay: -0.45s;
+          }
+          .lds-ring div:nth-child(2) {
+              animation-delay: -0.3s;
+          }
+          .lds-ring div:nth-child(3) {
+              animation-delay: -0.15s;
+          }
+          @keyframes lds-ring {
+              0% {
+                  transform: rotate(0deg);
+              }
+              100% {
+                  transform: rotate(360deg);
+              }
+          }
+      </style>
+    <link rel="icon" type="image/x-icon" href="https://onovomercado.com/wp-content/uploads/cropped-favicon_large-192x192-1.png">
+  </head>
+  <body>
+    <div class="form-wrapper">
+      <form action="javascript: consultar()" id="form">
+        <h1>Confirme o seu e-mail de assinante:</h1>
+        <div class="input-box">
+          <input
+            type="email"
+            name="inputEmail"
+            id="inputEmail"
+            placeholder="Digite seu e-mail de assinante"
+          />
+        </div>
+        <div class="input-box">
+          <input type="submit" value="Confirmar" id="submitButton" />
+        </div>
+        <!--LOADER em CSS puro-->
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <!--LOADER em CSS puro-->
+      </form>
+    </div>
+    <script>
+        var inputEmail = window.document.querySelector("#inputEmail");
+        var inputBtn = window.document.querySelector("#submitButton");
+        var loaderBtn = window.document.querySelector(".lds-ring");
+
+        //Função para mudar a estética do form enquanto faz consulta de API
+        function aestheticOn() {
+            inputBtn.style.background = "#0b7cac";
+            inputBtn.value = "Carregando...";
+            inputBtn.style.boxShadow = "none";
+            loaderBtn.style.display = "inline-block";
+        }
+
+        //Função para voltar a estética ao normal após consulta de API
+        function aestheticOff() {
+            inputBtn.style.background = "#dd004a";
+            inputBtn.value = "Confirmar";
+            inputBtn.style.boxShadow = "inherit";
+            loaderBtn.style.display = "none";
+        }
+
+        function consultar() {
+            aestheticOn();
+
+            //Armazenando email:
+            var userEmail = window.document
+                .querySelector("#inputEmail")
+                .value.toLowerCase();
+
+            //Verificando se o e-mail é um e-mail válido:
+            var validRegex =
+                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+            if (userEmail.match(validRegex)) {
+                //Fazendo email virar JSON
+                const payload = `{"email": "${userEmail}"}`;
+
+                const options = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
+                        Connection: "keep-alive",
+                    },
+                    body: payload,
+                };
+
+                //Usando o e-mail para consultar na API:
+                fetch("https://hook.us1.make.com/xueb5gx1yufx3v7gr6km55v47vkc4bwy", options)
+                    .then((response) => {
+                        return response.json();
+                    })
+                    .then((data) => {
+                        var offer_code = data.offer_code;
+                        var coupon_code = data.coupon_code;
+                        var errorMsg = data.error;
+                        console.log("Fetch");
+
+                        //Redirect
+                        if (offer_code) {
+                            urlHotmart = `https://pay.hotmart.com/?off=${offer_code}&offDiscount=${coupon_code}&sck=rabw2023&email=${encodeURIComponent(
+                                userEmail
+                            )}`;
+                            window.location.href = urlHotmart;
+                            aestheticOff();
+                        } else {
+                            alert(
+                                "Este email não está na lista de assinantes elegíveis para a oferta. Por favor, tente com outro e-mail ou entre em contato com o nosso Suporte."
+                            );
+                            console.log("Executei.");
+                            aestheticOff();
+                        }
+                    });
+            } else {
+                alert(`O texto digitado não é um e-mail. Por favor, tente novamente.`);
+                aestheticOff();
+            }
+        }
+    </script>
+    <!-- Start of onovomercado Zendesk Widget script -->
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=294780ac-451f-4aca-b17c-292905a7febf"> </script>
+    <!-- End of onovomercado Zendesk Widget script -->
+    <script type="text/javascript">
+        zE(function() {
+          zE.setHelpCenterSuggestions({ search: 'Black Week Renovação antecipada' });
+        });
+      </script>
+  </body>
+</html>
