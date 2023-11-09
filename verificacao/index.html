@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Renovação Antecipada - ONM 2023</title>
-      <style>
-          * {
-              font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-              font-size: 12px;
-          }
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
 
-          body {
-              width: 100%;
-              background-image: url("https://onovomercado.com/wp-content/uploads/bg-top-home-1600.png");
-          }
+        body {
+            width: 100%;
+            background: #03010E;
+        }
 
-          .form-wrapper {
+        .form-wrapper {
             display: flex;
             position: fixed;
             top: 0;
@@ -31,175 +32,278 @@
             backdrop-filter: blur(6px);
             color: #333;
             flex-direction: column;
-          }
+        }
 
-          form {
-              width: min(31rem, 90%);
-              padding: 4.4rem 4.2rem 6.2rem;
-              border-radius: 1rem;
-              box-shadow: 0px 3px 30px #e7004c38;
-              -webkit-box-shadow: 0px 3px 30px #e7004c38;
-              position: relative;
-              color: #e7e7e7;
-              background: #efefef;
-              overflow: hidden;
-              display: flex;
-              flex-direction: column;
-          }
+        form {
+            width: min(24rem, 90%);
+            padding: 4.0rem 4.7rem;
+            border-radius: 16px;
+            background: #12101C;
+            position: relative;
+            color: #e7e7e7;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-          form h1 {
-              margin: 0px;
-              font-size: clamp(2.6rem, 3vw, 3.2rem);
-              font-weight: bold;
-              line-height: 1.2;
-              letter-spacing: -0.04em;
-              color: #e9e9e9;
-              padding: 2rem 0;
-              position: relative;
-              background: linear-gradient(160deg, #4a84c8, #244e81);
-              background: linear-gradient(160deg, #4177b7, #275286);
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              background-clip: text;
-              /*text-fill-color: transparent;*/
-          }
+        form #voltarBtn {
+            display: none;
+            font-size: 1.3rem;
+            width: 25px;
+            height: 25px;
+            text-decoration: none;
+            padding: 10px;
+            border: solid 0.5px #e7e7e7c4;
+            border-radius: 25px;
+            color: #e7e7e7c4;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+        }
 
-          form .input-box {
-              margin-bottom: 20px;
-          }
+        form #voltarBtn svg {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
 
-          form input#inputEmail {
-              width: 100%;
-              font-size: 1.4rem;
-              line-height: 2.2;
-              color: #111;
-              min-height: 4rem;
-              margin-bottom: 1rem;
-              border: none;
-              border-bottom: 1px solid #dd004a !important;
-              transition: all 0.5s ease;
-          }
+        form #onm_logo {
+            margin-bottom: 28px;
+        }
 
-          form input#inputEmail::placeholder {
-              padding-left: 20px;
-              font-size: 1.6rem;
-          }
+        form #logo_blackonm {
+            width: 227px;
+        }
 
-          form input#inputEmail:focus {
-              outline: none;
-          }
+        form h1 {
 
-          form input#submitButton {
-              font-size: 1.4rem;
-              background: linear-gradient(to right, #ff5075, #e0004d);
-              border: none;
-              text-transform: uppercase;
-              color: #fff;
-              font-weight: bold;
-              padding: 1.6rem 1rem;
-              width: 100%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              overflow: hidden;
-              transition: all 0.3s ease;
-          }
+            display: none;
+            width: 225px;
+            color: #FFF;
+            text-align: center;
+            /*Voltar e corrigir fonte*/
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 100%;
+            margin: 52px 0px 52px 0px;
+        }
 
-          form input#submitButton:hover {
-              cursor: pointer;
-              box-shadow: -2px 0 8px 4px #ff9ab0;
-              -webkit-box-shadow: -2px 0 8px 4px #ff9ab0;
-          }
-          /*CSS LOADER*/
-          .lds-ring {
-              margin: auto;
-              /*display: inline-block;*/
-              display: none;
-              position: relative;
-              width: 40px;
-              height: 40px;
-          }
-          .lds-ring div {
-              box-sizing: border-box;
-              display: block;
-              position: absolute;
-              width: 32px;
-              height: 32px;
-              margin: 4px;
-              border: 4px solid #fff;
-              border-radius: 50%;
-              animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-              border-color: #dd004a transparent transparent transparent;
-          }
-          .lds-ring div:nth-child(1) {
-              animation-delay: -0.45s;
-          }
-          .lds-ring div:nth-child(2) {
-              animation-delay: -0.3s;
-          }
-          .lds-ring div:nth-child(3) {
-              animation-delay: -0.15s;
-          }
-          @keyframes lds-ring {
-              0% {
-                  transform: rotate(0deg);
-              }
-              100% {
-                  transform: rotate(360deg);
-              }
-          }
-          footer {
+        form .input-box {
+            display: none;
+            margin-bottom: 20px;
+            width: 90%;
+        }
+
+        form input#inputEmail {
+            width: 100%;
+            padding: 15px 0px;
+            border-radius: 30px;
+            border: 3px solid #3A3847;
+            background: #3A3847;
+            color: #B0B0B2;
+            text-align: center;
+            font-size: 1.2rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%;
+        }
+
+        form input#inputEmail::placeholder {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #B0B0B2;
+        }
+
+        form input#inputEmail:focus {
+            outline: none;
+        }
+
+        form input#submitButton {
+            width: 100%;
+            border: none;            
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px 0px;
+            color: #000;
+            border-radius: 6.94vw;
+            background: linear-gradient(82deg, #52B1F5, #CC74E3, #FF377D);
+        }
+        
+        form a.choice-btn {
+            text-decoration: none;
+            width: 100%;
+            border: none;            
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px 0px;
+            color: #000;
+            border-radius: 6.94vw;
+        }
+
+        form a.choice-btn:hover {
+            box-shadow: -0.14vw 0vw 0.56vw 0.35vw #e7e7e756;
+        }
+        
+        form a#choice-btn-naosoualuno {
+            margin: 52px 0px 16px;
+            background: linear-gradient(82deg, #52B1F5, #CC74E3, #FF377D);
+        }
+
+        form a#choice-btn-soualuno {
+            background: #FFF;
+        }
+
+        form input#submitButton:hover {
+            cursor: pointer;
+            box-shadow: -0.14vw 0vw 0.56vw 0.35vw #e7e7e763;
+            transition: all 0.3s;
+        }
+
+        /*CSS LOADER*/
+        .lds-ring {
+            margin: auto;
+            /*display: inline-block;*/
+            display: none;
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            margin: 4px;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #CC74E3 transparent transparent transparent;
+        }
+
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
             color: white;
             text-align: center;
-          }
-      </style>
-    <link rel="icon" type="image/x-icon" href="https://onovomercado.com/wp-content/uploads/cropped-favicon_large-192x192-1.png">
-  </head>
-  <body>
+        }
+    </style>
+    <link rel="icon" type="image/x-icon"
+        href="https://onovomercado.com/wp-content/uploads/cropped-favicon_large-192x192-1.png">
+</head>
+
+<body>
     <div class="form-wrapper">
-      <form action="javascript: consultar()" id="form">
-        <h1>Confirme o seu e-mail de assinante:</h1>
-        <div class="input-box">
-          <input
-            type="email"
-            name="inputEmail"
-            id="inputEmail"
-            placeholder="Digite seu e-mail de assinante"
-          />
-        </div>
-        <div class="input-box">
-          <input type="submit" value="Confirmar" id="submitButton" />
-        </div>
-        <!--LOADER em CSS puro-->
-        <div class="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <!--LOADER em CSS puro-->
-      </form>
-    <footer>© 2023 O Novo Mercado </br> Todos os Direitos Reservados</footer>
+        <form action="javascript: consultar()" id="form">
+            <a href="#" id="voltarBtn" onclick="voltarCaminho()">
+                <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M297.813333 491.648l1.365334-1.749333 379.093333-376.149334a38.784 38.784 0 0 1 5.077333-4.096 34.346667 34.346667 0 0 1 14.293334-4.992c2.218667-0.170667 2.176-0.170667 4.394666-0.170666a33.493333 33.493333 0 0 1 14.549334 4.181333c12.330667 6.997333 18.688 21.76 15.274666 35.498667-1.237333 5.077333-7.04 13.44-7.04 13.44l-355.498666 352.853333 354.090666 354.389333s6.272 7.978667 7.893334 12.928a32.213333 32.213333 0 0 1-33.749334 41.557334c-6.656-0.682667-17.749333-7.68-17.749333-7.68l-379.221333-377.984-1.28-1.450667a30.378667 30.378667 0 0 1-7.893334-17.749333 31.018667 31.018667 0 0 1 3.712-18.602667 27.221333 27.221333 0 0 1 2.688-4.224z"  /></svg>
+            </a>
+            <img id="onm_logo" src="https://onovomercado.com/wp-content/themes/onovomercado/home/img-v6/logo-onm-pw.svg"
+                alt="O Novo Mercado" width="120" height="36">
+            <div class="black-friday-img">
+                <picture>
+                    <img srcset="https://onovomercado.com/wp-content/themes/onovomercado/black-friday/img/banners/black-onm-logo.svg"
+                        alt="Black ONM" id="logo_blackonm">
+                </picture>
+            </div>
+            <a href="#" id="choice-btn-naosoualuno" class="choice-btn" onclick="caminhoNaoAluno()">Não sou aluno</a>
+            <a href="#" id="choice-btn-soualuno" class="choice-btn" onclick="caminhoAluno()">Sou aluno</a>
+            <!--Form box que fica escondido-->
+            <h1 id="titulo">Confirme o seu e-mail de assinante:</h1>
+            <div class="input-box">
+                <input type="email" name="inputEmail" id="inputEmail" placeholder="Seu e-mail de assinante" />
+            </div>
+            <div class="input-box">
+                <input type="submit" value="Verificar" id="submitButton" />
+            </div>
+            <!--Form box que fica escondido-->
+
+            <!--LOADER em CSS puro-->
+            <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <!--LOADER em CSS puro-->
+        </form>
+        <footer>© 2023 O Novo Mercado </br> Todos os Direitos Reservados</footer>
     </div>
     <script>
         var inputEmail = window.document.querySelector("#inputEmail");
         var inputBtn = window.document.querySelector("#submitButton");
         var loaderBtn = window.document.querySelector(".lds-ring");
+        var choiceBtn = window.document.getElementsByClassName("choice-btn");
+        var h1Text = window.document.querySelector("#titulo");
+        var inputBox = window.document.getElementsByClassName("input-box");
+        var voltarBtn = window.document.querySelector("#voltarBtn");
 
         //Função para mudar a estética do form enquanto faz consulta de API
         function aestheticOn() {
-            inputBtn.style.background = "#0b7cac";
-            inputBtn.value = "Carregando...";
-            inputBtn.style.boxShadow = "none";
+            //Mudar cor do botão:
+            //inputBtn.style.background = "#0b7cac";
+            inputBtn.value = "Verificando...";
+            inputBtn.style.color = "white";
             loaderBtn.style.display = "inline-block";
         }
 
         //Função para voltar a estética ao normal após consulta de API
         function aestheticOff() {
-            inputBtn.style.background = "#dd004a";
-            inputBtn.value = "Confirmar";
+            //Mudar cor do botão:
+            //inputBtn.style.background = "#dd004a";
+            inputBtn.value = "Verificar";
             inputBtn.style.boxShadow = "inherit";
             loaderBtn.style.display = "none";
+        }
+
+        function voltarCaminho() {
+            choiceBtn[0].style.display = "block";
+            choiceBtn[1].style.display = "block";
+            h1Text.style.display = "none";
+            inputBox[0].style.display = "none";
+            inputBox[1].style.display = "none";
+            voltarBtn.style.display = "none";
+        }
+
+        function caminhoAluno() {
+            choiceBtn[0].style.display = "none";
+            choiceBtn[1].style.display = "none";
+            h1Text.style.display = "block";
+            inputBox[0].style.display = "block";
+            inputBox[1].style.display = "block";
+            voltarBtn.style.display = "block";
+        }
+
+        function caminhoNaoAluno() {            
+            //NECESSÁRIO TROCAR LINK!
+            window.location.href = 'https://pay.hotmart.com/I11728780W?off=jwn1nzud&checkoutMode=10&sck=blackweek';
+            //NECESSÁRIO TROCAR LINK!
         }
 
         function consultar() {
@@ -261,12 +365,14 @@
         }
     </script>
     <!-- Start of onovomercado Zendesk Widget script -->
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=294780ac-451f-4aca-b17c-292905a7febf"> </script>
+    <script id="ze-snippet"
+        src="https://static.zdassets.com/ekr/snippet.js?key=294780ac-451f-4aca-b17c-292905a7febf"> </script>
     <!-- End of onovomercado Zendesk Widget script -->
     <script type="text/javascript">
-        zE(function() {
-          zE.setHelpCenterSuggestions({ search: 'Black Week Renovação antecipada' });
+        zE(function () {
+            zE.setHelpCenterSuggestions({ search: 'Black Week Renovação antecipada' });
         });
-      </script>
-  </body>
+    </script>
+</body>
+
 </html>
