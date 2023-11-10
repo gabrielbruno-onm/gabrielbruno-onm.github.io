@@ -146,7 +146,7 @@
         }
 
         form a.choice-btn:hover {
-            box-shadow: -0.14vw 0vw 0.56vw 0.35vw #e7e7e756;
+            box-shadow: -0.14vw 0vw 0.56vw 0.1vw #e7e7e756;
         }
         
         form a#choice-btn-naosoualuno {
@@ -160,7 +160,7 @@
 
         form input#submitButton:hover {
             cursor: pointer;
-            box-shadow: -0.14vw 0vw 0.56vw 0.35vw #e7e7e763;
+            box-shadow: -0.14vw 0vw 0.56vw 0.1vw #e7e7e763;
             transition: all 0.3s;
         }
 
@@ -272,6 +272,53 @@
         var inputBox = window.document.getElementsByClassName("input-box");
         var voltarBtn = window.document.querySelector("#voltarBtn");
 
+        //Analisando URL e coletando parâmetro SCK existente
+        function getSCK() {
+            var queryStringURL = window.location.search;
+            queryStringURL = queryStringURL.toLowerCase();
+            console.log(queryStringURL);
+            const urlParams = new URLSearchParams(queryStringURL);
+
+            if (urlParams.has('sck')) {
+                console.log("Existe SCK, será usado na URL de renovação antecipada.");
+                var SCK = urlParams.get('sck');
+                console.log(SCK);
+            } else {
+                var SCK = "rabw2023";
+                console.log("NÃO Existe SCK. Foi preenchido com rabw2023.");
+                console.log(SCK);
+            }
+
+            return SCK;
+        }
+
+        //Função para voltar do caminho "Sou Aluno" para a Tela de Escolha
+        function voltarCaminho() {
+            choiceBtn[0].style.display = "block";
+            choiceBtn[1].style.display = "block";
+            h1Text.style.display = "none";
+            inputBox[0].style.display = "none";
+            inputBox[1].style.display = "none";
+            voltarBtn.style.display = "none";
+        }
+
+        //Função para avançar no caminho "Sou Aluno"
+        function caminhoAluno() {
+            choiceBtn[0].style.display = "none";
+            choiceBtn[1].style.display = "none";
+            h1Text.style.display = "block";
+            inputBox[0].style.display = "block";
+            inputBox[1].style.display = "block";
+            voltarBtn.style.display = "block";
+        }
+
+        //Função para avançar no caminho "Não sou Aluno", redirecionando para o checkout Hotmart
+        function caminhoNaoAluno() {            
+            //NECESSÁRIO TROCAR LINK!
+            window.location.href = 'https://pay.hotmart.com/I11728780W?off=jwn1nzud&checkoutMode=10&sck=blackweek';
+            //NECESSÁRIO TROCAR LINK!
+        }
+
         //Função para mudar a estética do form enquanto faz consulta de API
         function aestheticOn() {
             //Mudar cor do botão:
@@ -287,34 +334,12 @@
             //inputBtn.style.background = "#dd004a";
             inputBtn.value = "Verificar";
             inputBtn.style.boxShadow = "inherit";
+            inputBtn.style.color = "black";
             loaderBtn.style.display = "none";
         }
 
-        function voltarCaminho() {
-            choiceBtn[0].style.display = "block";
-            choiceBtn[1].style.display = "block";
-            h1Text.style.display = "none";
-            inputBox[0].style.display = "none";
-            inputBox[1].style.display = "none";
-            voltarBtn.style.display = "none";
-        }
-
-        function caminhoAluno() {
-            choiceBtn[0].style.display = "none";
-            choiceBtn[1].style.display = "none";
-            h1Text.style.display = "block";
-            inputBox[0].style.display = "block";
-            inputBox[1].style.display = "block";
-            voltarBtn.style.display = "block";
-        }
-
-        function caminhoNaoAluno() {            
-            //NECESSÁRIO TROCAR LINK!
-            window.location.href = 'https://pay.hotmart.com/I11728780W?off=jwn1nzud&checkoutMode=10&sck=blackweek';
-            //NECESSÁRIO TROCAR LINK!
-        }
-
         function consultar() {
+            var sckHotmart = getSCK();
             aestheticOn();
 
             //Armazenando email:
@@ -353,7 +378,7 @@
 
                         //Redirect
                         if (offer_code) {
-                            urlHotmart = `https://pay.hotmart.com/?off=${offer_code}&offDiscount=${coupon_code}&sck=rabw2023&email=${encodeURIComponent(
+                            urlHotmart = `https://pay.hotmart.com/?off=${offer_code}&offDiscount=${coupon_code}&sck=${sckHotmart}&email=${encodeURIComponent(
                                 userEmail
                             )}`;
                             window.location.href = urlHotmart;
